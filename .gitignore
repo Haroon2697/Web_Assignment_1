@@ -1,0 +1,13 @@
+# Dependencies
+node_modules/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log
+
+# Large archives (keep PDF/text if needed; uncomment to ignore PDFs)
+*.zip
+
+# Local / Cursor
+.cursor/

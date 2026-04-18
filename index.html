@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nova Admin | Landing</title>
+    <script>
+      tailwind = { config: { darkMode: "class" } };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body class="bg-zinc-50 text-zinc-800 dark:bg-zinc-900 dark:text-zinc-100">
+    <main class="min-h-screen marketing-gradient text-white">
+      <header class="max-w-6xl mx-auto px-6 py-6 flex flex-col md:flex-row justify-between items-center gap-4">
+        <h1 class="text-3xl font-extrabold">Nova Admin</h1>
+        <nav class="flex items-center gap-3 text-sm">
+          <a href="login.html" class="px-5 py-2 rounded-xl bg-white/10 hover:bg-white/20 transition-all">Login</a>
+          <a href="signup.html" class="px-5 py-2 rounded-xl bg-pink-500 hover:bg-pink-400 transition-all">Signup</a>
+        </nav>
+      </header>
+
+      <section class="max-w-6xl mx-auto px-6 py-10 md:py-16 grid md:grid-cols-2 gap-10 items-center">
+        <div>
+          <h2 class="text-4xl md:text-5xl font-extrabold leading-tight">Unlock your business potential with a premium admin panel</h2>
+          <p class="mt-5 text-indigo-100 max-w-xl">
+            Built for your SE3003 assignment with modern multi-page architecture, localStorage authentication, and complete CRUD flow.
+          </p>
+          <div class="mt-8 flex gap-3">
+            <a href="login.html" class="px-6 py-3 rounded-xl bg-pink-500 hover:bg-pink-400 transition-all font-semibold">Login Now</a>
+            <a href="signup.html" class="px-6 py-3 rounded-xl border border-white/40 hover:bg-white/10 transition-all font-semibold">Create Account</a>
+          </div>
+        </div>
+        <div class="glass rounded-2xl p-6 border border-white/20">
+          <h3 class="font-bold text-2xl">Why choose Nova Admin?</h3>
+          <div class="mt-5 grid gap-4">
+            <article class="rounded-xl bg-white/10 p-4">
+              <h4 class="font-semibold">Real Dashboard Flow</h4>
+              <p class="text-sm text-indigo-100 mt-1">Sidebar navigation, header profile dropdown, and dynamic summary cards.</p>
+            </article>
+            <article class="rounded-xl bg-white/10 p-4">
+              <h4 class="font-semibold">LocalStorage CRUD</h4>
+              <p class="text-sm text-indigo-100 mt-1">Users, products, notifications, and settings persist across page refresh.</p>
+            </article>
+            <article class="rounded-xl bg-white/10 p-4">
+              <h4 class="font-semibold">Viva Friendly Code</h4>
+              <p class="text-sm text-indigo-100 mt-1">Modular JavaScript structure that is easy to explain during oral verification.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="bg-zinc-950 text-zinc-400 py-6">
+      <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row gap-3 justify-between text-sm">
+        <p>SE3003 Assignment 01 - Nova Admin Dashboard</p>
+        <div class="space-x-4">
+          <a href="login.html" class="hover:text-white transition-all">Login</a>
+          <a href="signup.html" class="hover:text-white transition-all">Signup</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

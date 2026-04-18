@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nova Admin | Signup</title>
+    <script>
+      tailwind = { config: { darkMode: "class" } };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body class="min-h-screen auth-shell flex items-center justify-center px-4 py-8">
+    <section class="w-full max-w-5xl auth-card bg-white grid md:grid-cols-2">
+      <form id="signupForm" class="p-8 md:p-12 bg-white flex flex-col justify-center">
+        <h1 class="text-2xl font-bold text-zinc-800">Create your account</h1>
+        <p class="text-zinc-500 mt-2">Set up your admin credentials.</p>
+        <div class="mt-6 space-y-4">
+          <div>
+            <label class="text-sm font-medium text-zinc-700">Email</label>
+            <input id="email" type="email" class="w-full mt-1 px-4 py-2 rounded-xl border border-zinc-300" />
+          </div>
+          <div>
+            <label class="text-sm font-medium text-zinc-700">Password</label>
+            <input id="password" type="password" class="w-full mt-1 px-4 py-2 rounded-xl border border-zinc-300" />
+          </div>
+          <div>
+            <label class="text-sm font-medium text-zinc-700">Confirm Password</label>
+            <input id="confirmPassword" type="password" class="w-full mt-1 px-4 py-2 rounded-xl border border-zinc-300" />
+          </div>
+        </div>
+        <p id="formMessage" class="mt-3 text-sm"></p>
+        <button class="w-full mt-4 bg-indigo-600 text-white py-2.5 rounded-xl hover:bg-indigo-700 transition-all">Create Account</button>
+        <p class="text-sm mt-4 text-zinc-600">Already have an account? <a href="login.html" class="text-indigo-600 font-semibold">Login</a></p>
+      </form>
+      <div class="auth-panel p-10 md:p-12 flex flex-col justify-center">
+        <p class="text-6xl font-bold leading-none opacity-70">"</p>
+        <h2 class="text-3xl font-bold mt-3 leading-tight">By using Nova Admin, teams move faster with clean insights.</h2>
+        <p class="mt-4 text-indigo-100">Track users, products, and business growth from one modern admin platform.</p>
+        <p class="mt-10 text-sm uppercase tracking-[0.22em] text-indigo-100">Trusted by student projects and demos</p>
+      </div>
+    </section>
+    <script type="module" src="assets/js/signup.js"></script>
+  </body>
+</html>

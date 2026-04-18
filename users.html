@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nova Admin | Users</title>
+    <script>tailwind = { config: { darkMode: "class" } };</script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body class="min-h-screen bg-zinc-100 dark:bg-zinc-900">
+    <div class="page-shell md:flex">
+      <aside class="md:w-64 md:min-h-screen glass dash-sidebar border-r p-6 flex flex-col">
+        <h2 class="text-2xl md:text-3xl font-extrabold mb-8 tracking-tight">Nova Admin</h2>
+        <nav class="space-y-1 flex-1">
+          <a class="sidebar-link block px-4 py-2.5 rounded-xl" href="dashboard.html">
+            <svg class="w-5 h-5 opacity-80 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+            Dashboard
+          </a>
+          <a class="sidebar-link block px-4 py-2.5 rounded-xl" href="users.html">
+            <svg class="w-5 h-5 opacity-80 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+            Users
+          </a>
+          <a class="sidebar-link block px-4 py-2.5 rounded-xl" href="products.html">
+            <svg class="w-5 h-5 opacity-80 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+            Products
+          </a>
+          <a class="sidebar-link block px-4 py-2.5 rounded-xl" href="analytics.html">
+            <svg class="w-5 h-5 opacity-80 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+            Analytics
+          </a>
+          <a class="sidebar-link block px-4 py-2.5 rounded-xl" href="notifications.html">
+            <svg class="w-5 h-5 opacity-80 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+            Notifications
+          </a>
+          <a class="sidebar-link block px-4 py-2.5 rounded-xl" href="settings.html">
+            <svg class="w-5 h-5 opacity-80 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+            Settings
+          </a>
+        </nav>
+      </aside>
+      <main class="page-main flex-1 space-y-6">
+        <header class="glass page-topbar p-4 border flex flex-col md:flex-row md:items-center justify-between gap-3">
+          <div class="relative w-full max-w-md">
+            <svg class="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-[color:var(--muted-light)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            <input id="searchUser" type="search" placeholder="Search users..." class="w-full pl-10 pr-4 py-2.5 text-sm rounded-xl" />
+          </div>
+          <div class="relative">
+            <button id="profileButton" class="px-4 py-2 rounded-xl text-white">Profile</button>
+            <div id="profileMenu" class="hidden absolute right-0 top-full mt-2 w-56 rounded-2xl p-2 z-50 bg-[color:var(--surface)] border border-[color:var(--surface-border)] shadow-xl">
+              <div class="px-3 py-2.5 border-b border-[color:var(--surface-border)] mb-1.5">
+                <p class="text-[0.65rem] font-bold uppercase tracking-wider text-[color:var(--muted-light)]">Signed in as</p>
+                <p id="userEmail" class="text-sm font-medium truncate text-[color:var(--text)]"></p>
+              </div>
+              <button data-action="logout" class="w-full text-left px-3 py-2.5 rounded-xl hover:bg-red-50 dark:hover:bg-red-500/10 text-red-600 dark:text-red-400 font-medium">Logout</button>
+            </div>
+          </div>
+        </header>
+
+        <div class="page-title-wrap">
+          <h1 class="section-title text-3xl">Users</h1>
+          <p class="section-subtitle mt-1">Manage team members, roles, and account status.</p>
+        </div>
+
+        <section class="grid lg:grid-cols-3 gap-6">
+          <form id="userForm" class="premium-card p-5 space-y-3">
+            <h3 id="formTitle" class="section-title text-xl">Add User</h3>
+            <input id="name" required placeholder="Name" class="w-full px-4 py-2 rounded-xl" />
+            <input id="email" required type="email" placeholder="Email" class="w-full px-4 py-2 rounded-xl" />
+            <select id="role" class="w-full px-4 py-2 rounded-xl">
+              <option>Admin</option><option>Manager</option><option>Support</option>
+            </select>
+            <select id="status" class="w-full px-4 py-2 rounded-xl">
+              <option>Active</option><option>Inactive</option>
+            </select>
+            <div class="flex gap-2">
+              <button class="px-4 py-2 rounded-xl text-white">Save</button>
+              <button id="cancelEdit" type="button" class="hidden px-4 py-2 rounded-xl muted-chip">Cancel</button>
+            </div>
+          </form>
+
+          <div class="lg:col-span-2 premium-card p-5 table-shell">
+            <table class="w-full text-left">
+              <thead>
+                <tr>
+                  <th class="py-3">Name</th><th>Email</th><th>Role</th><th>Status</th><th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="usersTableBody"></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script type="module" src="assets/js/users.js"></script>
+  </body>
+</html>
