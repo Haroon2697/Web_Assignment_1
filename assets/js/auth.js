@@ -34,7 +34,7 @@ export function login(email, password) {
 export function logout() {
   localStorage.removeItem(AUTH_KEYS.loggedIn);
   localStorage.removeItem(AUTH_KEYS.currentUser);
-  window.location.href = "login.html";
+  window.location.href = "index.html";
 }
 
 export function requireAuth() {

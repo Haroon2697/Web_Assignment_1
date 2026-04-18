@@ -98,9 +98,9 @@ function renderNotifications() {
             <button type="button" data-id="${item.id}" class="delete-btn icon-btn icon-btn--delete" title="Delete" aria-label="Delete">${ICON_DELETE}</button>
           </div>
         </div>
-        <div class="text-right shrink-0 max-w-[7rem]">
+        <div class="text-right shrink-0 max-w-[8rem]">
           <p class="notification-meta">${escapeHtml(item.time)}</p>
-          <div class="hidden md:flex flex-col gap-1.5 mt-2 items-end">
+          <div class="hidden md:flex items-center gap-1.5 mt-1.5 justify-end">
             <button type="button" data-id="${item.id}" class="mark-btn action-btn action-btn-mark text-xs whitespace-nowrap">Mark read</button>
             <button type="button" data-id="${item.id}" class="delete-btn icon-btn icon-btn--delete" title="Delete" aria-label="Delete">${ICON_DELETE}</button>
           </div>
