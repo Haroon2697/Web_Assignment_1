@@ -663,6 +663,16 @@ html.dark .dash-segments {
   border-color: var(--surface-border) !important;
 }
 
+@media (min-width: 768px) {
+  .dash-sidebar {
+    position: sticky;
+    top: 0;
+    align-self: flex-start;
+    height: 100vh;
+    overflow-y: auto;
+  }
+}
+
 /* ─────────────────────────────────────────────
    Shared page chrome (users/products/etc.)
    ───────────────────────────────────────────── */
