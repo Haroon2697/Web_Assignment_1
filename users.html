@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nova Admin | Users</title>
+    <title>Nova Admin | User Management</title>
     <script>tailwind = { config: { darkMode: "class" } };</script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="assets/css/styles.css" />
@@ -39,59 +39,111 @@
           </a>
         </nav>
       </aside>
-      <main class="page-main flex-1 space-y-6">
-        <header class="glass page-topbar p-4 border flex flex-col md:flex-row md:items-center justify-between gap-3">
-          <div class="relative w-full max-w-md">
-            <svg class="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-[color:var(--muted-light)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-            <input id="searchUser" type="search" placeholder="Search users..." class="w-full pl-10 pr-4 py-2.5 text-sm rounded-xl" />
-          </div>
-          <div class="relative">
-            <button id="profileButton" class="px-4 py-2 rounded-xl text-white">Profile</button>
+
+      <main class="page-main flex-1 space-y-5">
+        <header class="glass page-topbar p-4 border flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <p class="text-sm text-[color:var(--muted)]">Users · CRUD data is stored in <code class="text-xs bg-black/5 dark:bg-white/10 px-1.5 py-0.5 rounded">localStorage</code></p>
+          <div class="relative shrink-0">
+            <button id="profileButton" type="button" class="px-4 py-2 rounded-xl text-white">Profile</button>
             <div id="profileMenu" class="hidden absolute right-0 top-full mt-2 w-56 rounded-2xl p-2 z-50 bg-[color:var(--surface)] border border-[color:var(--surface-border)] shadow-xl">
               <div class="px-3 py-2.5 border-b border-[color:var(--surface-border)] mb-1.5">
                 <p class="text-[0.65rem] font-bold uppercase tracking-wider text-[color:var(--muted-light)]">Signed in as</p>
                 <p id="userEmail" class="text-sm font-medium truncate text-[color:var(--text)]"></p>
               </div>
-              <button data-action="logout" class="w-full text-left px-3 py-2.5 rounded-xl hover:bg-red-50 dark:hover:bg-red-500/10 text-red-600 dark:text-red-400 font-medium">Logout</button>
+              <button type="button" data-action="logout" class="w-full text-left px-3 py-2.5 rounded-xl hover:bg-red-50 dark:hover:bg-red-500/10 text-red-600 dark:text-red-400 font-medium">Logout</button>
             </div>
           </div>
         </header>
 
-        <div class="page-title-wrap">
-          <h1 class="section-title text-3xl">Users</h1>
-          <p class="section-subtitle mt-1">Manage team members, roles, and account status.</p>
-        </div>
-
-        <section class="grid lg:grid-cols-3 gap-6">
-          <form id="userForm" class="premium-card p-5 space-y-3">
-            <h3 id="formTitle" class="section-title text-xl">Add User</h3>
-            <input id="name" required placeholder="Name" class="w-full px-4 py-2 rounded-xl" />
-            <input id="email" required type="email" placeholder="Email" class="w-full px-4 py-2 rounded-xl" />
-            <select id="role" class="w-full px-4 py-2 rounded-xl">
-              <option>Admin</option><option>Manager</option><option>Support</option>
-            </select>
-            <select id="status" class="w-full px-4 py-2 rounded-xl">
-              <option>Active</option><option>Inactive</option>
-            </select>
-            <div class="flex gap-2">
-              <button class="px-4 py-2 rounded-xl text-white">Save</button>
-              <button id="cancelEdit" type="button" class="hidden px-4 py-2 rounded-xl muted-chip">Cancel</button>
+        <section class="users-module-card">
+          <div class="users-module-header">
+            <h1 class="users-module-title">User <strong>Management</strong></h1>
+            <div class="flex flex-wrap gap-2">
+              <button type="button" id="exportUsers" class="users-toolbar-btn">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                Export to Excel
+              </button>
+              <button type="button" id="openAddUser" class="users-toolbar-btn users-toolbar-btn--primary">
+                <span class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-[color:var(--primary)] text-white">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                </span>
+                Add New User
+              </button>
             </div>
-          </form>
+          </div>
 
-          <div class="lg:col-span-2 premium-card p-5 table-shell">
-            <table class="w-full text-left">
+          <div class="px-4 py-3 border-b border-slate-200 dark:border-slate-600/40 bg-white dark:bg-slate-900/40">
+            <label class="sr-only" for="searchUser">Search users</label>
+            <div class="relative max-w-md">
+              <svg class="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+              <input id="searchUser" type="search" placeholder="Search by name, email, role, or status…" class="w-full pl-10 pr-4 py-2.5 text-sm rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800/80" />
+            </div>
+          </div>
+
+          <div class="users-table-wrap">
+            <table class="users-table">
               <thead>
                 <tr>
-                  <th class="py-3">Name</th><th>Email</th><th>Role</th><th>Status</th><th>Actions</th>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Date Created</th>
+                  <th>Role</th>
+                  <th>Status</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody id="usersTableBody"></tbody>
             </table>
           </div>
+
+          <div class="users-footer">
+            <p id="usersMeta">Showing <strong>0</strong> out of <strong>0</strong> entries</p>
+            <nav id="usersPagination" class="users-pagination" aria-label="Pagination"></nav>
+          </div>
         </section>
       </main>
     </div>
+
+    <!-- Add / Edit modal -->
+    <div id="userModal" class="user-modal-backdrop user-modal-hidden" role="dialog" aria-modal="true" aria-labelledby="userModalTitle">
+      <div class="user-modal-panel">
+        <h2 id="userModalTitle" class="section-title text-xl mb-4">Add User</h2>
+        <form id="userForm" class="space-y-3">
+          <div>
+            <label class="text-xs font-semibold text-[color:var(--muted)]" for="name">Name</label>
+            <input id="name" required placeholder="Full name" class="mt-1 w-full px-4 py-2 rounded-xl" />
+          </div>
+          <div>
+            <label class="text-xs font-semibold text-[color:var(--muted)]" for="email">Email</label>
+            <input id="email" required type="email" placeholder="email@company.com" class="mt-1 w-full px-4 py-2 rounded-xl" />
+          </div>
+          <div>
+            <label class="text-xs font-semibold text-[color:var(--muted)]" for="role">Role</label>
+            <select id="role" class="mt-1 w-full px-4 py-2 rounded-xl">
+              <option>Admin</option>
+              <option>Manager</option>
+              <option>Support</option>
+              <option>Publisher</option>
+              <option>Reviewer</option>
+              <option>Moderator</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-xs font-semibold text-[color:var(--muted)]" for="status">Status</label>
+            <select id="status" class="mt-1 w-full px-4 py-2 rounded-xl">
+              <option>Active</option>
+              <option>Suspended</option>
+              <option>Inactive</option>
+            </select>
+          </div>
+          <div class="flex gap-2 pt-2">
+            <button type="submit" class="flex-1 px-4 py-2.5 rounded-xl bg-indigo-600 text-white font-semibold">Save</button>
+            <button type="button" id="cancelEdit" class="px-4 py-2.5 rounded-xl muted-chip font-semibold">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
     <script type="module" src="assets/js/users.js"></script>
   </body>
 </html>

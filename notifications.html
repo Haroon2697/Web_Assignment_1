@@ -59,7 +59,17 @@
 
         <div class="notifications-shell">
           <div class="notifications-panel">
-            <div class="notifications-panel-header">Notifications</div>
+            <div class="notifications-panel-header flex items-center justify-between gap-3">
+              <span>Notifications</span>
+              <button
+                type="button"
+                id="restoreNotifications"
+                class="action-btn text-xs"
+                title="Restore default notifications"
+              >
+                Restore Defaults
+              </button>
+            </div>
             <ul id="notificationList" class="list-none m-0 p-0"></ul>
             <div class="notifications-footer">
               <a href="dashboard.html">See all incoming activity</a>

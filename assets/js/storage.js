@@ -7,9 +7,78 @@ const KEYS = {
 
 const DEFAULTS = {
   users: [
-    { id: crypto.randomUUID(), name: "Admin User", email: "admin@demo.com", role: "Admin", status: "Active" },
-    { id: crypto.randomUUID(), name: "Sara Khan", email: "sara@demo.com", role: "Manager", status: "Active" },
-    { id: crypto.randomUUID(), name: "Ali Ahmed", email: "ali@demo.com", role: "Support", status: "Inactive" }
+    {
+      id: crypto.randomUUID(),
+      name: "Admin User",
+      email: "admin@demo.com",
+      role: "Admin",
+      status: "Active",
+      createdAt: "2024-03-12T10:00:00.000Z",
+      avatar: "https://ui-avatars.com/api/?name=Admin+User&background=2563eb&color=fff"
+    },
+    {
+      id: crypto.randomUUID(),
+      name: "Sara Khan",
+      email: "sara@demo.com",
+      role: "Publisher",
+      status: "Active",
+      createdAt: "2024-06-01T14:30:00.000Z",
+      avatar: "https://ui-avatars.com/api/?name=Sara+Khan&background=2563eb&color=fff"
+    },
+    {
+      id: crypto.randomUUID(),
+      name: "Ali Ahmed",
+      email: "ali@demo.com",
+      role: "Reviewer",
+      status: "Inactive",
+      createdAt: "2024-04-20T09:15:00.000Z",
+      avatar: "https://ui-avatars.com/api/?name=Ali+Ahmed&background=2563eb&color=fff"
+    },
+    {
+      id: crypto.randomUUID(),
+      name: "Jordan Lee",
+      email: "jordan@demo.com",
+      role: "Moderator",
+      status: "Suspended",
+      createdAt: "2024-07-08T16:45:00.000Z",
+      avatar: "https://ui-avatars.com/api/?name=Jordan+Lee&background=2563eb&color=fff"
+    },
+    {
+      id: crypto.randomUUID(),
+      name: "Priya Sharma",
+      email: "priya@demo.com",
+      role: "Publisher",
+      status: "Active",
+      createdAt: "2024-08-11T11:20:00.000Z",
+      avatar: "https://ui-avatars.com/api/?name=Priya+Sharma&background=2563eb&color=fff"
+    },
+    {
+      id: crypto.randomUUID(),
+      name: "Marcus Cole",
+      email: "marcus@demo.com",
+      role: "Reviewer",
+      status: "Active",
+      createdAt: "2024-09-03T08:00:00.000Z",
+      avatar: "https://ui-avatars.com/api/?name=Marcus+Cole&background=2563eb&color=fff"
+    },
+    {
+      id: crypto.randomUUID(),
+      name: "Elena Rossi",
+      email: "elena@demo.com",
+      role: "Admin",
+      status: "Inactive",
+      createdAt: "2024-10-22T13:10:00.000Z",
+      avatar: "https://ui-avatars.com/api/?name=Elena+Rossi&background=2563eb&color=fff"
+    },
+    {
+      id: crypto.randomUUID(),
+      name: "David Okonjo",
+      email: "david@demo.com",
+      role: "Moderator",
+      status: "Active",
+      createdAt: "2024-11-05T07:55:00.000Z",
+      avatar: "https://ui-avatars.com/api/?name=David+Okonjo&background=2563eb&color=fff"
+    }
   ],
   products: [
     { id: crypto.randomUUID(), name: "Pro Plan", price: 99, status: "Active", picture: "https://picsum.photos/100?1", quantity: 74 },

@@ -56,22 +56,52 @@
             </div>
           </div>
         </header>
-        <section class="grid lg:grid-cols-2 gap-6">
-          <form id="settingsForm" class="premium-card p-5 space-y-3">
-            <h3 class="section-title text-xl">Profile</h3>
-            <input id="profileName" required placeholder="Name" class="w-full px-4 py-2 rounded-xl" />
-            <input id="profileEmail" required type="email" placeholder="Email" class="w-full px-4 py-2 rounded-xl" />
-            <button class="px-4 py-2 rounded-xl text-white">Save Profile</button>
+        <section class="grid lg:grid-cols-2 gap-6 settings-grid">
+          <form id="settingsForm" class="premium-card settings-panel p-5 space-y-4">
+            <div class="settings-card-head">
+              <div class="settings-card-icon" aria-hidden="true">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A9 9 0 1118.364 4.56M15 11a3 3 0 11-6 0 3 3 0 016 0zM5.5 19.5a7.5 7.5 0 0113 0"></path></svg>
+              </div>
+              <div>
+                <h3 class="section-title text-xl">Profile</h3>
+                <p class="settings-chip">Account</p>
+              </div>
+            </div>
+            <p class="section-subtitle">Update your basic account information.</p>
+            <div>
+              <label class="text-xs font-semibold text-[color:var(--muted)]" for="profileName">Name</label>
+              <input id="profileName" required placeholder="Name" class="mt-1 w-full px-4 py-2 rounded-xl" />
+            </div>
+            <div>
+              <label class="text-xs font-semibold text-[color:var(--muted)]" for="profileEmail">Email</label>
+              <input id="profileEmail" required type="email" placeholder="Email" class="mt-1 w-full px-4 py-2 rounded-xl" />
+            </div>
+            <button type="submit" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-semibold">Save Profile</button>
           </form>
-          <form id="passwordForm" class="premium-card p-5 space-y-3">
-            <h3 class="section-title text-xl">Password Change (Mock)</h3>
-            <input id="newPassword" type="password" required placeholder="New Password" class="w-full px-4 py-2 rounded-xl" />
-            <input id="confirmNewPassword" type="password" required placeholder="Confirm Password" class="w-full px-4 py-2 rounded-xl" />
-            <label class="flex items-center gap-3 py-2">
+          <form id="passwordForm" class="premium-card settings-panel p-5 space-y-4">
+            <div class="settings-card-head">
+              <div class="settings-card-icon" aria-hidden="true">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c-1.1 0-2 .9-2 2v2h4v-2c0-1.1-.9-2-2-2zm6 4V9a6 6 0 10-12 0v6H4v4h16v-4h-2z"></path></svg>
+              </div>
+              <div>
+                <h3 class="section-title text-xl">Password Change (Mock)</h3>
+                <p class="settings-chip">Security</p>
+              </div>
+            </div>
+            <p class="section-subtitle">Use matching values below to simulate a password update.</p>
+            <div>
+              <label class="text-xs font-semibold text-[color:var(--muted)]" for="newPassword">New Password</label>
+              <input id="newPassword" type="password" required placeholder="New Password" class="mt-1 w-full px-4 py-2 rounded-xl" />
+            </div>
+            <div>
+              <label class="text-xs font-semibold text-[color:var(--muted)]" for="confirmNewPassword">Confirm Password</label>
+              <input id="confirmNewPassword" type="password" required placeholder="Confirm Password" class="mt-1 w-full px-4 py-2 rounded-xl" />
+            </div>
+            <label class="settings-toggle-row">
               <input id="themeToggle" type="checkbox" class="h-5 w-5 accent-teal-500" />
               <span class="text-[color:var(--muted)]">Enable Dark Mode</span>
             </label>
-            <button class="px-4 py-2 rounded-xl text-white">Update Password</button>
+            <button type="submit" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-semibold">Update Password</button>
             <p id="settingsMessage" class="text-sm text-emerald-600"></p>
           </form>
         </section>
