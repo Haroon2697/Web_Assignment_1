@@ -67,6 +67,30 @@ const growthCtx = document.getElementById("growthChart");
 
 const chartOptions = baseChartOptions(theme);
 
+/** Mock datasets for Revenue chart toggles */
+const REVENUE_DATA = {
+  "6m": {
+    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+    values: [4000, 5500, 6100, 7200, 8000, 9300]
+  },
+  ytd: {
+    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    values: [3200, 4100, 5200, 6100, 7000, 7800, 8500, 9100, 9800, 10200, 10800, 11500]
+  }
+};
+
+/** Mock datasets for User growth — monthly vs weekly resolution */
+const GROWTH_DATA = {
+  monthly: {
+    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+    values: [20, 35, 50, 69, 88, 110]
+  },
+  weekly: {
+    labels: ["W1", "W2", "W3", "W4", "W5", "W6", "W7", "W8"],
+    values: [14, 22, 31, 44, 58, 72, 91, 105]
+  }
+};
+
 function barBackground(context) {
   const { chart } = context;
   const { ctx, chartArea } = chart;
@@ -77,14 +101,23 @@ function barBackground(context) {
   return g;
 }
 
-new Chart(revenueCtx, {
+function growthAreaFill(context) {
+  const { ctx, chartArea } = context.chart;
+  if (!chartArea) return "transparent";
+  const g = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
+  g.addColorStop(0, theme.isDark ? "rgba(45, 212, 191, 0.22)" : "rgba(13, 148, 136, 0.18)");
+  g.addColorStop(1, "rgba(13, 148, 136, 0)");
+  return g;
+}
+
+const revenueChart = new Chart(revenueCtx, {
   type: "bar",
   data: {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+    labels: [...REVENUE_DATA.ytd.labels],
     datasets: [
       {
         label: "Revenue",
-        data: [4000, 5500, 6100, 7200, 8000, 9300],
+        data: [...REVENUE_DATA.ytd.values],
         backgroundColor: barBackground,
         borderRadius: 10,
         borderSkipped: false,
@@ -95,14 +128,14 @@ new Chart(revenueCtx, {
   options: chartOptions
 });
 
-new Chart(growthCtx, {
+const growthChart = new Chart(growthCtx, {
   type: "line",
   data: {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+    labels: [...GROWTH_DATA.monthly.labels],
     datasets: [
       {
         label: "Users",
-        data: [20, 35, 50, 69, 88, 110],
+        data: [...GROWTH_DATA.monthly.values],
         borderColor: theme.primary,
         borderWidth: 2.5,
         tension: 0.35,
@@ -112,16 +145,46 @@ new Chart(growthCtx, {
         pointHoverBorderColor: theme.isDark ? "#0f172a" : "#fff",
         pointHoverBorderWidth: 2,
         fill: true,
-        backgroundColor(context) {
-          const { ctx, chartArea } = context.chart;
-          if (!chartArea) return "transparent";
-          const g = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
-          g.addColorStop(0, theme.isDark ? "rgba(45, 212, 191, 0.22)" : "rgba(13, 148, 136, 0.18)");
-          g.addColorStop(1, "rgba(13, 148, 136, 0)");
-          return g;
-        }
+        backgroundColor: growthAreaFill
       }
     ]
   },
   options: chartOptions
 });
+
+function setActiveSegment(container, activeButton) {
+  if (!container) return;
+  container.querySelectorAll(".dash-segment").forEach((btn) => {
+    btn.classList.toggle("is-active", btn === activeButton);
+  });
+}
+
+const revenueSegments = document.getElementById("revenueSegments");
+if (revenueSegments) {
+  revenueSegments.querySelectorAll("[data-revenue-range]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const range = btn.dataset.revenueRange;
+      const payload = REVENUE_DATA[range];
+      if (!payload) return;
+      revenueChart.data.labels = [...payload.labels];
+      revenueChart.data.datasets[0].data = [...payload.values];
+      revenueChart.update();
+      setActiveSegment(revenueSegments, btn);
+    });
+  });
+}
+
+const growthSegments = document.getElementById("growthSegments");
+if (growthSegments) {
+  growthSegments.querySelectorAll("[data-growth-mode]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const mode = btn.dataset.growthMode;
+      const payload = GROWTH_DATA[mode];
+      if (!payload) return;
+      growthChart.data.labels = [...payload.labels];
+      growthChart.data.datasets[0].data = [...payload.values];
+      growthChart.update();
+      setActiveSegment(growthSegments, btn);
+    });
+  });
+}

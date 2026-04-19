@@ -131,9 +131,9 @@
                 <h2 class="dash-chart-title">Revenue overview</h2>
                 <p class="dash-chart-sub">Sample trend for the first half of the year.</p>
               </div>
-              <div class="dash-segments" role="group" aria-label="Chart range">
-                <button type="button" class="dash-segment">6M</button>
-                <button type="button" class="dash-segment is-active">YTD</button>
+              <div id="revenueSegments" class="dash-segments" role="group" aria-label="Chart range">
+                <button type="button" class="dash-segment" data-revenue-range="6m">6M</button>
+                <button type="button" class="dash-segment is-active" data-revenue-range="ytd">YTD</button>
               </div>
             </div>
             <div class="dash-chart-canvas">
@@ -146,9 +146,9 @@
                 <h2 class="dash-chart-title">User growth</h2>
                 <p class="dash-chart-sub">Cumulative sign-ups—placeholder series for the dashboard.</p>
               </div>
-              <div class="dash-segments" role="group" aria-label="Growth resolution">
-                <button type="button" class="dash-segment is-active">Monthly</button>
-                <button type="button" class="dash-segment">Weekly</button>
+              <div id="growthSegments" class="dash-segments" role="group" aria-label="Growth resolution">
+                <button type="button" class="dash-segment is-active" data-growth-mode="monthly">Monthly</button>
+                <button type="button" class="dash-segment" data-growth-mode="weekly">Weekly</button>
               </div>
             </div>
             <div class="dash-chart-canvas">
