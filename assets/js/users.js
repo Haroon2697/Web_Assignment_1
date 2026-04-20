@@ -9,6 +9,9 @@ let editingId = null;
 
 const tbody = document.getElementById("usersTableBody");
 const searchInput = document.getElementById("searchUser");
+const filterRoleEl = document.getElementById("filterRole");
+const filterStatusEl = document.getElementById("filterStatus");
+const clearUserFiltersBtn = document.getElementById("clearUserFilters");
 const form = document.getElementById("userForm");
 const formTitle = document.getElementById("userModalTitle");
 const cancelEditBtn = document.getElementById("cancelEdit");
@@ -50,13 +53,19 @@ function statusDotClass(status) {
   return "status-dot--inactive";
 }
 
-function getFilteredUsers(query = "") {
-  const q = query.trim().toLowerCase();
+function getFilteredUsers() {
+  const q = (searchInput?.value ?? "").trim().toLowerCase();
+  const roleFilter = filterRoleEl?.value?.trim() ?? "";
+  const statusFilter = filterStatusEl?.value?.trim() ?? "";
   return getUsers()
     .map(normalizeUser)
-    .filter((user) =>
-      `${user.name} ${user.email} ${user.role} ${user.status}`.toLowerCase().includes(q)
-    );
+    .filter((user) => {
+      const haystack = `${user.name} ${user.email} ${user.role} ${user.status}`.toLowerCase();
+      const matchesSearch = !q || haystack.includes(q);
+      const matchesRole = !roleFilter || user.role === roleFilter;
+      const matchesStatus = !statusFilter || user.status === statusFilter;
+      return matchesSearch && matchesRole && matchesStatus;
+    });
 }
 
 function openModal() {
@@ -104,13 +113,13 @@ function renderPagination(totalItems) {
       if (target === "prev") currentPage = Math.max(1, currentPage - 1);
       else if (target === "next") currentPage = Math.min(totalPages, currentPage + 1);
       else currentPage = Number(target);
-      renderUsers(searchInput.value);
+      renderUsers();
     });
   });
 }
 
-function renderUsers(query = "") {
-  const filtered = getFilteredUsers(query);
+function renderUsers() {
+  const filtered = getFilteredUsers();
   const total = filtered.length;
   const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
   const start = (currentPage - 1) * PAGE_SIZE;
@@ -158,10 +167,10 @@ function bindRowActions() {
     button.addEventListener("click", () => {
       const users = getUsers().filter((user) => user.id !== button.dataset.id);
       setUsers(users);
-      const filtered = getFilteredUsers(searchInput.value);
+      const filtered = getFilteredUsers();
       const maxPage = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
       if (currentPage > maxPage) currentPage = maxPage;
-      renderUsers(searchInput.value);
+      renderUsers();
     });
   });
 
@@ -238,20 +247,43 @@ form.addEventListener("submit", (event) => {
   const updated = editingId ? users.map((user) => (user.id === editingId ? payload : user)) : [...users, payload];
   setUsers(updated);
   closeModal();
-  const filteredAfter = getFilteredUsers(searchInput.value);
   if (!wasEditing) {
     searchInput.value = "";
-    currentPage = Math.max(1, Math.ceil(getFilteredUsers("").length / PAGE_SIZE));
-    renderUsers("");
+    if (filterRoleEl) filterRoleEl.value = "";
+    if (filterStatusEl) filterStatusEl.value = "";
+    currentPage = Math.max(1, Math.ceil(getFilteredUsers().length / PAGE_SIZE));
+    renderUsers();
     return;
   }
-  renderUsers(searchInput.value);
+  renderUsers();
 });
 
 searchInput.addEventListener("input", () => {
   currentPage = 1;
-  renderUsers(searchInput.value);
+  renderUsers();
 });
+
+if (filterRoleEl) {
+  filterRoleEl.addEventListener("change", () => {
+    currentPage = 1;
+    renderUsers();
+  });
+}
+if (filterStatusEl) {
+  filterStatusEl.addEventListener("change", () => {
+    currentPage = 1;
+    renderUsers();
+  });
+}
+if (clearUserFiltersBtn) {
+  clearUserFiltersBtn.addEventListener("click", () => {
+    searchInput.value = "";
+    if (filterRoleEl) filterRoleEl.value = "";
+    if (filterStatusEl) filterStatusEl.value = "";
+    currentPage = 1;
+    renderUsers();
+  });
+}
 
 exportUsersBtn.addEventListener("click", () => {
   const rows = getUsers().map(normalizeUser);

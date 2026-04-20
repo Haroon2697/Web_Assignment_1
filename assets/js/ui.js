@@ -39,7 +39,60 @@ export function initProtectedPage(activePath) {
   }
 
   applyTheme();
+  initMobileSidebar();
   return user;
+}
+
+/** Hamburger drawer: sidebar fixed off-canvas below md breakpoint; static sidebar on md+. */
+export function initMobileSidebar() {
+  const sidebar = document.getElementById("appSidebar");
+  const toggle = document.getElementById("sidebarToggle");
+  const backdrop = document.getElementById("sidebarBackdrop");
+  if (!sidebar || !toggle) return;
+
+  const mq = window.matchMedia("(max-width: 1023px)");
+
+  function close() {
+    sidebar.classList.remove("is-open");
+    backdrop?.classList.add("hidden");
+    backdrop?.classList.remove("sidebar-backdrop--visible");
+    document.body.classList.remove("sidebar-open");
+    toggle.setAttribute("aria-expanded", "false");
+  }
+
+  function open() {
+    if (!mq.matches) return;
+    sidebar.classList.add("is-open");
+    backdrop?.classList.remove("hidden");
+    backdrop?.classList.add("sidebar-backdrop--visible");
+    document.body.classList.add("sidebar-open");
+    toggle.setAttribute("aria-expanded", "true");
+  }
+
+  toggle.addEventListener("click", () => {
+    if (sidebar.classList.contains("is-open")) close();
+    else open();
+  });
+
+  backdrop?.addEventListener("click", close);
+
+  sidebar.querySelectorAll(".sidebar-close-btn").forEach((btn) => {
+    btn.addEventListener("click", close);
+  });
+
+  sidebar.querySelectorAll("a.sidebar-link").forEach((link) => {
+    link.addEventListener("click", () => {
+      if (mq.matches) close();
+    });
+  });
+
+  mq.addEventListener("change", (e) => {
+    if (!e.matches) close();
+  });
+
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && sidebar.classList.contains("is-open")) close();
+  });
 }
 
 export function applyTheme() {

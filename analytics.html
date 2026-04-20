@@ -10,9 +10,15 @@
     <link rel="stylesheet" href="assets/css/styles.css" />
   </head>
   <body class="min-h-screen bg-zinc-100 dark:bg-zinc-900">
-    <div class="page-shell md:flex">
-      <aside class="md:w-64 md:min-h-screen glass dash-sidebar border-r p-6 flex flex-col">
-        <h2 class="text-2xl md:text-3xl font-extrabold mb-8 tracking-tight">Nova Admin</h2>
+    <div class="page-shell lg:flex relative">
+      <div id="sidebarBackdrop" class="sidebar-backdrop hidden lg:hidden" aria-hidden="true"></div>
+      <aside id="appSidebar" class="app-sidebar lg:w-64 lg:min-h-screen glass dash-sidebar border-r p-6 flex flex-col">
+        <div class="flex items-center justify-between gap-3 mb-6 md:mb-8 shrink-0">
+          <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight min-w-0">Nova Admin</h2>
+          <button type="button" class="sidebar-close-btn lg:hidden" aria-label="Close menu">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+          </button>
+        </div>
         <nav class="space-y-1 flex-1">
           <a class="sidebar-link block px-4 py-2.5 rounded-xl" href="dashboard.html">
             <svg class="w-5 h-5 opacity-80 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
@@ -42,11 +48,16 @@
       </aside>
       <main class="page-main flex-1 space-y-5">
         <header class="glass page-topbar p-4 border flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-          <div class="page-title-wrap">
-            <h1 class="section-title text-2xl md:text-3xl">Analytics</h1>
-            <p class="section-subtitle mt-1">Mock dashboard inspired by analytics suites — assignment demonstration only.</p>
+          <div class="flex items-start gap-3 min-w-0">
+            <button type="button" id="sidebarToggle" class="lg:hidden shrink-0 inline-flex items-center justify-center w-10 h-10 rounded-xl border border-[color:var(--surface-border)] bg-[color:var(--surface)] text-[color:var(--text)]" aria-label="Open navigation menu" aria-expanded="false">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+            <div class="page-title-wrap min-w-0">
+              <h1 class="section-title text-2xl md:text-3xl">Analytics</h1>
+              <p class="section-subtitle mt-1">Mock dashboard inspired by analytics suites — assignment demonstration only.</p>
+            </div>
           </div>
-          <div class="relative shrink-0">
+          <div class="relative shrink-0 self-end sm:self-auto">
             <button id="profileButton" type="button" class="px-4 py-2 rounded-xl text-white">Profile</button>
             <div id="profileMenu" class="hidden absolute right-0 top-full mt-2 w-56 rounded-2xl p-2 z-50 bg-[color:var(--surface)] border border-[color:var(--surface-border)] shadow-xl">
               <div class="px-3 py-2.5 border-b border-[color:var(--surface-border)] mb-1.5">

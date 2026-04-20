@@ -72,10 +72,18 @@ body {
 /* ── Sidebar ── */
 aside h2 {
   letter-spacing: -0.03em;
+  font-weight: 800;
+  color: var(--primary);
+  /* Solid color always readable; gradient optional where supported */
   background: linear-gradient(135deg, var(--primary), #38bdf8);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  aside h2 {
+    -webkit-text-fill-color: transparent;
+  }
 }
 
 .sidebar-link {
@@ -235,6 +243,7 @@ table tbody tr:hover {
 #profileMenu {
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
   border: 1px solid var(--surface-border);
+  z-index: 60;
 }
 
 /* ── Landing Page Hero ── */
@@ -663,8 +672,8 @@ html.dark .dash-segments {
   border-color: var(--surface-border) !important;
 }
 
-@media (min-width: 768px) {
-  .dash-sidebar {
+@media (min-width: 1024px) {
+  .dash-sidebar:not(.app-sidebar) {
     position: sticky;
     top: 0;
     align-self: flex-start;
@@ -684,6 +693,7 @@ html.dark .dash-segments {
 
 .page-main {
   width: 100%;
+  min-width: 0;
   max-width: 90rem;
   margin: 0 auto;
   padding: 1.25rem;
@@ -1412,4 +1422,141 @@ html.dark .users-footer {
   border-radius: 1rem;
   box-shadow: var(--shadow-lg);
   padding: 1.5rem;
+}
+
+/* ── Mobile sidebar drawer (app pages) ── */
+.sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  background: rgba(15, 23, 42, 0.55);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+}
+
+.sidebar-backdrop.sidebar-backdrop--visible {
+  animation: sidebarFadeIn 0.2s ease forwards;
+}
+
+@keyframes sidebarFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+body.sidebar-open {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+/* Drawer + hamburger: screens smaller than lg (1024px) — includes most tablets */
+@media (max-width: 1023px) {
+  .app-sidebar {
+    position: fixed !important;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: min(19rem, 90vw);
+    max-width: 100%;
+    z-index: 50;
+    transform: translateX(-105%);
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    height: 100vh !important;
+    height: 100dvh !important;
+    min-height: 0 !important;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    padding-top: max(1.25rem, env(safe-area-inset-top, 0px));
+    padding-bottom: max(1rem, env(safe-area-inset-bottom, 0px));
+    padding-left: max(1rem, env(safe-area-inset-left, 0px));
+    will-change: transform;
+  }
+
+  .app-sidebar.is-open {
+    transform: translateX(0);
+    box-shadow: 12px 0 40px rgba(0, 0, 0, 0.22);
+  }
+
+  .app-sidebar .sidebar-link {
+    min-height: 2.75rem;
+    align-items: center;
+  }
+
+  .sidebar-close-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 0.75rem;
+    border: 1.5px solid var(--surface-border);
+    background: var(--surface);
+    color: var(--muted);
+    flex-shrink: 0;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+
+  .sidebar-close-btn:hover {
+    background: var(--primary-light);
+    color: var(--primary);
+  }
+
+  .sidebar-close-btn:active {
+    transform: scale(0.96);
+  }
+
+  /* Always show menu control when drawer layout is active (Tailwind lg:hidden backup) */
+  #sidebarToggle {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 1023px) and (prefers-reduced-motion: reduce) {
+  .app-sidebar {
+    transition: transform 0.15s ease;
+  }
+}
+
+@media (min-width: 1024px) {
+  .app-sidebar {
+    position: sticky !important;
+    top: 0;
+    align-self: flex-start;
+    transform: none !important;
+    height: 100vh !important;
+    min-height: 100vh;
+    overflow-y: auto;
+    box-shadow: none;
+  }
+
+  #sidebarToggle {
+    display: none !important;
+  }
+
+  .sidebar-close-btn {
+    display: none !important;
+  }
+
+  .sidebar-backdrop {
+    display: none !important;
+  }
+
+  body.sidebar-open {
+    overflow: auto;
+  }
+}
+
+/* Dashboard chart segments: wrap on narrow screens */
+@media (max-width: 639px) {
+  .dash-chart-head {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .dash-segments {
+    align-self: flex-start;
+  }
 }

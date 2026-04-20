@@ -54,3 +54,28 @@ export function redirectIfAuthenticated() {
     window.location.href = "dashboard.html";
   }
 }
+
+/** Update stored login password (same account used on login/signup). */
+export function updatePassword(currentPassword, newPassword) {
+  const account = getAccount();
+  if (!account) {
+    return { ok: false, message: "No account found. Sign up first." };
+  }
+  if (account.password !== currentPassword) {
+    return { ok: false, message: "Current password is incorrect." };
+  }
+  if (!newPassword || String(newPassword).length < 1) {
+    return { ok: false, message: "Choose a new password." };
+  }
+  const updated = { ...account, password: newPassword };
+  localStorage.setItem(AUTH_KEYS.account, JSON.stringify(updated));
+  return { ok: true };
+}
+
+/** Keep profile email in sync with login account when user saves settings. */
+export function updateAccountEmail(newEmail) {
+  const account = getAccount();
+  if (!account || !newEmail) return;
+  localStorage.setItem(AUTH_KEYS.account, JSON.stringify({ ...account, email: newEmail }));
+  localStorage.setItem(AUTH_KEYS.currentUser, JSON.stringify({ email: newEmail }));
+}

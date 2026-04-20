@@ -9,9 +9,15 @@
     <link rel="stylesheet" href="assets/css/styles.css" />
   </head>
   <body class="min-h-screen bg-zinc-100 dark:bg-zinc-900">
-    <div class="page-shell md:flex">
-      <aside class="md:w-64 md:min-h-screen glass dash-sidebar border-r p-6 flex flex-col">
-        <h2 class="text-2xl md:text-3xl font-extrabold mb-8 tracking-tight">Nova Admin</h2>
+    <div class="page-shell lg:flex relative">
+      <div id="sidebarBackdrop" class="sidebar-backdrop hidden lg:hidden" aria-hidden="true"></div>
+      <aside id="appSidebar" class="app-sidebar lg:w-64 lg:min-h-screen glass dash-sidebar border-r p-6 flex flex-col">
+        <div class="flex items-center justify-between gap-3 mb-6 md:mb-8 shrink-0">
+          <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight min-w-0">Nova Admin</h2>
+          <button type="button" class="sidebar-close-btn lg:hidden" aria-label="Close menu">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+          </button>
+        </div>
         <nav class="space-y-1 flex-1">
           <a class="sidebar-link block px-4 py-2.5 rounded-xl" href="dashboard.html">
             <svg class="w-5 h-5 opacity-80 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
@@ -40,13 +46,18 @@
         </nav>
       </aside>
       <main class="page-main flex-1 space-y-6">
-        <header class="glass page-topbar p-4 border flex justify-between items-center">
-          <div class="page-title-wrap">
-            <h1 class="section-title text-3xl">Settings</h1>
-            <p class="section-subtitle mt-1">Manage your account details, credentials, and theme.</p>
+        <header class="glass page-topbar p-4 border flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div class="flex items-start gap-3 min-w-0">
+            <button type="button" id="sidebarToggle" class="lg:hidden shrink-0 inline-flex items-center justify-center w-10 h-10 rounded-xl border border-[color:var(--surface-border)] bg-[color:var(--surface)] text-[color:var(--text)]" aria-label="Open navigation menu" aria-expanded="false">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+            <div class="page-title-wrap min-w-0">
+              <h1 class="section-title text-2xl sm:text-3xl">Settings</h1>
+              <p class="section-subtitle mt-1">Manage your account details, credentials, and theme.</p>
+            </div>
           </div>
-          <div class="relative">
-            <button id="profileButton" class="px-4 py-2 rounded-xl text-white">Profile</button>
+          <div class="relative shrink-0 self-end sm:self-auto">
+            <button id="profileButton" type="button" class="px-4 py-2 rounded-xl text-white">Profile</button>
             <div id="profileMenu" class="hidden absolute right-0 top-full mt-2 w-56 rounded-2xl p-2 z-50 bg-[color:var(--surface)] border border-[color:var(--surface-border)] shadow-xl">
               <div class="px-3 py-2.5 border-b border-[color:var(--surface-border)] mb-1.5">
                 <p class="text-[0.65rem] font-bold uppercase tracking-wider text-[color:var(--muted-light)]">Signed in as</p>
@@ -56,7 +67,7 @@
             </div>
           </div>
         </header>
-        <section class="grid lg:grid-cols-2 gap-6 settings-grid">
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 settings-grid">
           <form id="settingsForm" class="premium-card settings-panel p-5 space-y-4">
             <div class="settings-card-head">
               <div class="settings-card-icon" aria-hidden="true">
@@ -76,7 +87,11 @@
               <label class="text-xs font-semibold text-[color:var(--muted)]" for="profileEmail">Email</label>
               <input id="profileEmail" required type="email" placeholder="Email" class="mt-1 w-full px-4 py-2 rounded-xl" />
             </div>
-            <button type="submit" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-semibold">Save Profile</button>
+            <label class="settings-toggle-row">
+              <input id="themeToggle" type="checkbox" class="h-5 w-5 accent-teal-500" />
+              <span class="text-[color:var(--muted)]">Enable dark mode</span>
+            </label>
+            <button type="submit" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-semibold">Save profile</button>
           </form>
           <form id="passwordForm" class="premium-card settings-panel p-5 space-y-4">
             <div class="settings-card-head">
@@ -84,26 +99,26 @@
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c-1.1 0-2 .9-2 2v2h4v-2c0-1.1-.9-2-2-2zm6 4V9a6 6 0 10-12 0v6H4v4h16v-4h-2z"></path></svg>
               </div>
               <div>
-                <h3 class="section-title text-xl">Password Change (Mock)</h3>
+                <h3 class="section-title text-xl">Password</h3>
                 <p class="settings-chip">Security</p>
               </div>
             </div>
-            <p class="section-subtitle">Use matching values below to simulate a password update.</p>
+            <p class="section-subtitle">Updates the password you use on the login page (stored in localStorage).</p>
             <div>
-              <label class="text-xs font-semibold text-[color:var(--muted)]" for="newPassword">New Password</label>
-              <input id="newPassword" type="password" required placeholder="New Password" class="mt-1 w-full px-4 py-2 rounded-xl" />
+              <label class="text-xs font-semibold text-[color:var(--muted)]" for="currentPassword">Current password</label>
+              <input id="currentPassword" type="password" required autocomplete="current-password" placeholder="Current password" class="mt-1 w-full px-4 py-2 rounded-xl" />
             </div>
             <div>
-              <label class="text-xs font-semibold text-[color:var(--muted)]" for="confirmNewPassword">Confirm Password</label>
-              <input id="confirmNewPassword" type="password" required placeholder="Confirm Password" class="mt-1 w-full px-4 py-2 rounded-xl" />
+              <label class="text-xs font-semibold text-[color:var(--muted)]" for="newPassword">New password</label>
+              <input id="newPassword" type="password" required autocomplete="new-password" placeholder="New password" class="mt-1 w-full px-4 py-2 rounded-xl" />
             </div>
-            <label class="settings-toggle-row">
-              <input id="themeToggle" type="checkbox" class="h-5 w-5 accent-teal-500" />
-              <span class="text-[color:var(--muted)]">Enable Dark Mode</span>
-            </label>
-            <button type="submit" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-semibold">Update Password</button>
-            <p id="settingsMessage" class="text-sm text-emerald-600"></p>
+            <div>
+              <label class="text-xs font-semibold text-[color:var(--muted)]" for="confirmNewPassword">Confirm new password</label>
+              <input id="confirmNewPassword" type="password" required autocomplete="new-password" placeholder="Confirm new password" class="mt-1 w-full px-4 py-2 rounded-xl" />
+            </div>
+            <button type="submit" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-semibold">Update password</button>
           </form>
+          <p id="settingsMessage" class="text-sm text-emerald-600 dark:text-emerald-400 lg:col-span-2 px-1" role="status"></p>
         </section>
       </main>
     </div>
